@@ -26,15 +26,22 @@ void CFeet::display()
 CFeet CFeet::operator-(CFeet&a)
 {
 	CFeet temp;
-	if (feet > 0)
+	if (feet > a.feet)
 	{
 		temp.setvalue(feet - a.feet, inches - a.inches);
 	}
-	if (feet < 0 || feet == 0)
+	if (feet<0)
 	{
-		temp.setvalue(feet - a.feet, feet * 12 + inches - a.feet * 12 - a.inches);
+		temp.setvalue((feet * 12 - inches - a.feet * 12 - a.inches)/12,-(feet * 12 - inches - a.feet * 12 - a.inches) %12);
 	}
-
+	if (feet > 0 && feet < a.feet)
+	{
+		temp.setvalue((feet * 12 + inches - a.feet * 12 - a.inches) / 12, -(feet * 12 + inches - a.feet * 12 - a.inches) % 12);
+	}
+	if (feet > 0 && inches < a.inches)
+	{
+		temp.setvalue((feet * 12 + inches - a.feet * 12 - a.inches) / 12, -(feet * 12 + inches - a.feet * 12 - a.inches) % 12);
+	}
 
 	return temp;
 }
@@ -42,8 +49,8 @@ CFeet CFeet::operator-(CFeet&a)
 int main()
 {
 	CFeet A, B, C;
-	A.setvalue(2, 2);
-	B.setvalue(1, 1);
+	A.setvalue(-2,2);
+	B.setvalue(-1,1);
 	C = B - A;
 	C.display();
 	return 0;
